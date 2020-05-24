@@ -1,0 +1,25 @@
+:local(.square) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: solid #dfdfdf 1px;
+  border-top: solid #dfdfdf 1px;
+  font-family: 'Ubuntu', sans-serif;
+  color: #90a2a7;
+  font-weight: 100;
+  font-size: 13px;
+  background-color: #fff;
+}
+
+:local(.image) {
+  width: 6vw;
+  height: 6vw;
+}
+
+:local(.square:nth-child(9n)) {
+  border-right: solid #dfdfdf 1px;
+}
+
+:local(.square:nth-last-child(-n+9)) {
+  border-bottom: solid #dfdfdf 1px;
+}

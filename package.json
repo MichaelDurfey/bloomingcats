@@ -1,0 +1,65 @@
+{
+  "name": "bloominggarden",
+  "version": "1.0.0",
+  "description": "Blooming garden implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "webpack-dev-server --config=webpack.dev.js",
+    "build": "webpack --config=webpack.prod.js",
+    "build:dev": "webpack --config=webpack.dev.js",
+    "dev-server": "node ./src/server/dev-server.js",
+    "prod": "webpack --config ./webpack.prod.js",
+    "server": "nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelDurfey/bloomingcats.git"
+  },
+  "keywords": [
+    "cats",
+    "game",
+    "fun",
+    "cute",
+    "cn"
+  ],
+  "author": "michael durfey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MichaelDurfey/bloomingcats/issues"
+  },
+  "homepage": "https://github.com/MichaelDurfey/bloomingcats#readme",
+  "dependencies": {
+    "@babel/core": "^7.9.6",
+    "bootstrap": "^4.5.0",
+    "core-js": "^3.6.5",
+    "express": "^4.17.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.9.6",
+    "@babel/preset-react": "^7.9.4",
+    "babel-loader": "^8.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.5.3",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "file-loader": "^6.0.0",
+    "html-loader": "^1.1.0",
+    "html-webpack-plugin": "^4.3.0",
+    "prettier": "^2.0.5",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0",
+    "webpack-merge": "^4.2.2"
+  }
+}

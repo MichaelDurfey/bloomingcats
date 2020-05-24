@@ -1,0 +1,9 @@
+:local(.main) {
+    height: 100%;
+    background-color: #343a40
+}
+
+:local(.mainGame) {
+    height: 100%;
+    background-color: #343a40
+}

@@ -1,0 +1,13 @@
+:local(.board) {
+  display: grid;
+  grid-template-columns: repeat(9, minmax(45px, 7vw));
+  grid-template-rows: repeat(9, minmax(45px, 7vw)) ;
+}
+
+:local(.boardContainer){ 
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  flex-basis: 35%;
+  justify-content: center;
+}
