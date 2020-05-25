@@ -1,35 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDrop } from 'react-dnd';
 import styles from '../../styles/Square.css';
+import Cat from './Cat';
+import ItemTypes from '../../constants';
+// eslint-disable-next-line import/no-cycle
+import { useBoardContext } from './BoardContext';
 
 const Square = (props) => {
   const {
-    key, active, cat, row, column,
+    active, cat, numberPosition,
   } = props;
-  console.log('key!', key);
+  const { squares, rerenderBoard } = useBoardContext();
+  const [, drop] = useDrop({
+    accept: ItemTypes.CAT,
+    drop: (item) => rerenderBoard(numberPosition, item.position, item.cat),
+    canDrop: () => !squares[numberPosition].props.active,
+    collect: (mon) => ({
+      isOver: !!mon.isOver(),
+      canDrop: !!mon.canDrop(),
+    }),
+  });
   return (
     <div
-      key={key}
+      ref={drop}
       role="presentation"
-      onDragOver={(ev) => {
-        ev.preventDefault();
-      }}
-      onDrop={(ev) => {
-        ev.preventDefault();
-        const data = ev.dataTransfer.getData('id');
-        ev.target.appendChild(document.getElementById(data));
-      }}
+      id={numberPosition}
       className={styles.square}
     >
-      { active
-        ? (
-          <div
-            draggable
-            onDragStart={(ev, id) => ev.dataTransfer.setData('id', ev.target.id)}
-          >
-            <img className={styles.image} id={`${row}-${column}`} src={cat} alt="cat" role="presentation" />
-          </div>
-        ) : null}
+      { active ? <Cat numberPosition={numberPosition} cat={cat} /> : null}
     </div>
   );
 };
@@ -38,5 +37,6 @@ export default Square;
 
 Square.propTypes = {
   active: PropTypes.bool.isRequired,
-  key: PropTypes.string.isRequired,
+  cat: PropTypes.shape({ index: PropTypes.number, img: PropTypes.string }).isRequired,
+  numberPosition: PropTypes.number.isRequired,
 };

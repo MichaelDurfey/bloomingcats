@@ -1,14 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import Board from './Board';
-import styles from '../../styles/Home.css';
 import BoardContextProvider from './BoardContext';
 
 export default function Game() {
   return (
     <section>
-      <BoardContextProvider>
-        <Board />
-      </BoardContextProvider>
+      <DndProvider backend={HTML5Backend}>
+        <BoardContextProvider>
+          <Board />
+        </BoardContextProvider>
+      </DndProvider>
     </section>
   );
 }
