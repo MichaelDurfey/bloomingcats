@@ -7,9 +7,13 @@ import styles from '../../styles/Cat.css';
 import { useBoardContext } from './BoardContext';
 
 
-export default function Cat({ cat, numberPosition }) {
+export default function Cat({
+  cat, numberPosition, row, column,
+}) {
   const [{ isDragging }, drag, preview] = useDrag({
-    item: { type: ItemTypes.CAT, position: numberPosition, cat },
+    item: {
+      type: ItemTypes.CAT, position: { row, column, numberPosition }, cat,
+    },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       position: monitor,
@@ -31,4 +35,6 @@ export default function Cat({ cat, numberPosition }) {
 Cat.propTypes = {
   cat: PropTypes.string.isRequired,
   numberPosition: PropTypes.number.isRequired,
+  row: PropTypes.number.isRequired,
+  column: PropTypes.number.isRequired,
 };

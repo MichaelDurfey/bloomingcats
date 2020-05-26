@@ -1,3 +1,5 @@
+/* eslint-disable no-loop-func */
+/* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -49,71 +51,186 @@ const randomCat = () => {
   const index = Math.floor(Math.random() * 7);
   return { index, img: [catImageMap[index]] };
 };
+const played = {};
+const availableSquares = [];
 const randomThreeNumbersFirst = getRandomArrayOfNumsInclusive(80, 3);
-const catMapDefault = Array.from({ length: 81 })// 9 x 9 board;
-  .map((arr, idx) => {
-    const active = randomThreeNumbersFirst.includes(idx);
+let counter = -1;
+const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
+  // eslint-disable-next-line array-callback-return
+  .map((arr, idx) => Array.from({ length: 9 }, (x, i) => {
+    counter += 1;
+    const active = randomThreeNumbersFirst.includes(counter);
+    if (active) {
+      played[idx] = played[idx] || {};
+      played[idx][i] = true;
+    } else {
+      availableSquares[counter] = counter;
+    }
     return (
       <Square
-        key={`${idx}`}
+        key={`${idx}-${i}`}
         cat={active && randomCat()}
-        numberPosition={idx}
+        numberPosition={counter}
+        row={idx}
+        column={i}
         active={active}
       />
     );
-  });
+  }));
 
-const BoardContext = React.createContext(null);
-
-const BoardContextProvider = ({ children }) => {
-  const [isBeingDragged, updateIsDragged] = useState({ row: null, col: null, cat: null });
-  const [squares, updateSquares] = useState(catMapDefault);
-
-  const rerenderBoard = (newCatPosition, oldCatToRemove, cat) => {
-    const newMap = [...squares];
-    newMap[oldCatToRemove] = (
+function updateRow(map, row, ...cordinates) {
+  const mapCopy = [...map];
+  const rowCopy = [...mapCopy[row]];
+  cordinates.forEach((col) => {
+    const { numberPosition } = rowCopy[col].props;
+    availableSquares[numberPosition] = numberPosition;
+    rowCopy[col] = (
       <Square
-        key={`${oldCatToRemove}`}
-        cat={{}}
-        numberPosition={oldCatToRemove}
+        key={`${row}-${col}`}
+        cat={false}
+        numberPosition={numberPosition}
+        row={row}
+        column={col}
         active={false}
       />
     );
-    newMap[newCatPosition] = (
+  });
+  mapCopy[row] = rowCopy;
+  return mapCopy;
+}
+
+function updateColumn(map, column, row) {
+  const mapCopy = [...map];
+  console.log('updatecolumn!');
+  for (let i = column; i < 5; i += 1) {
+    const { numberPosition } = mapCopy[row][i].props;
+    availableSquares[numberPosition] = numberPosition;
+    mapCopy[row][i] = (
       <Square
-        key={`${newCatPosition}`}
+        key={`${row}-${i}`}
+        cat={false}
+        numberPosition={numberPosition}
+        row={row}
+        column={i}
+        active={false}
+      />
+    );
+  }
+  return mapCopy;
+}
+
+function checkMatch(a, b, c, d, e) {
+  // eslint-disable-next-line prefer-rest-params
+  return Array.from(arguments).every((value) => typeof value === 'number') && a === b && b === c && c === d && d === e;
+}
+
+function checkRows(map, match) {
+  let newMap = [...map];
+  map.forEach((row, idx) => {
+    for (let i = 0; i < 5; i += 1) {
+      const catIndex = (modifier) => row[i + modifier || 0].props.cat.index;
+      if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+        newMap = updateRow(map, idx, i, i + 1, i + 2, i + 3, i + 4);
+        match = true;
+      }
+    }
+  });
+  return { newMap, match };
+}
+function checkColumns(finalMap, match) {
+  const newMap = [...finalMap];
+  // TO DO
+  // for (let i = 0; i < 5; i += 1) {
+  //   for (let j = 0; j < 5; j += 1) {
+  //     const catIndex = (modifier) => newMap[j + modifier || 0][i].props.cat.index;
+  //     if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+  //       newMap = updateColumn(finalMap, j, i, j + 1, j + 2, j + 3, j + 4);
+  //       match = true;
+  //     }
+  //   }
+  // }
+  return { newMap, match };
+}
+function checkMajorDiag(finalMap, match) {
+  return { newMap: finalMap, match };
+}
+function checkMinorDiag(finalMap, match) {
+  return { newMap: finalMap, match };
+}
+
+const BoardContext = React.createContext(null);
+const BoardContextProvider = ({ children }) => {
+  const [squares, updateSquares] = useState(catMapDefault);
+
+  const checkMatches = (finalMap) => {
+    let newMap = [...finalMap];
+    let match;
+    ({ newMap, match } = checkRows(newMap, match));
+    ({ newMap, match } = checkColumns(newMap, match));
+    ({ newMap, match } = checkMajorDiag(newMap, match));
+    ({ newMap, match } = checkMinorDiag(newMap, match));
+    return { match, newMap };
+  };
+
+  const rerenderBoard = (newCat, oldCat, cat) => {
+    const newMap = [...squares];
+    newMap[oldCat.row][oldCat.column] = (
+      <Square
+        key={`${oldCat.row}-${oldCat.column}`}
+        cat={{}}
+        numberPosition={oldCat.numberPosition}
+        row={oldCat.row}
+        column={oldCat.column}
+        active={false}
+      />
+    );
+    newMap[newCat.row][newCat.column] = (
+      <Square
+        key={`${newCat.row}-${newCat.column}`}
         cat={cat}
-        numberPosition={newCatPosition}
+        numberPosition={newCat.numberPosition}
+        row={newCat.row}
+        column={newCat.column}
         active
       />
     );
-    const availableSquares = newMap.map((item) => {
-      if (!item.props.active) {
-        return item.props.numberPosition;
-      }
-      return false;
-    }).filter((value) => typeof value === 'number');
-    const randomNums = getRandomArrayOfNumsInclusive(availableSquares.length - 1, 3);
-    const randomThreeAvailableNumbers = randomNums.map((value) => availableSquares[value]);
-    const finalMap = newMap.map((item, idx) => {
-      if (randomThreeAvailableNumbers.includes(item.props.numberPosition)) {
-        return (
-          <Square
-            key={`${idx}`}
-            cat={randomCat()}
-            numberPosition={idx}
-            active
-          />
-        );
-      }
-      return item;
-    });
+    availableSquares[oldCat.numberPosition] = oldCat.numberPosition;
+    availableSquares[newCat.numberPosition] = undefined;
+    const totalAvailableSquares = availableSquares.filter((value) => typeof value === 'number');
+    played[newCat.row] = played[newCat.row] || {};
+    played[newCat.row][newCat.column] = true;
+    played[oldCat.row] = played[oldCat.row] || {};
+    played[oldCat.row][oldCat.column] = undefined;
+    const randomNums = getRandomArrayOfNumsInclusive(totalAvailableSquares.length - 1, 3);
+    const randomThreeAvailableNumbers = randomNums.map((value) => totalAvailableSquares[value]);
+    let finalMapCounter = -1;
+    const { match, newMap: matchedMap } = checkMatches(newMap);
+    let finalMap = matchedMap;
+    if (!match) {
+      finalMap = newMap.map((arr, rowIdx) => arr.map((square, idx) => {
+        finalMapCounter += 1;
+        if (randomThreeAvailableNumbers.includes(finalMapCounter)) {
+          availableSquares[finalMapCounter] = undefined;
+          return (
+            <Square
+              key={`${rowIdx}-${idx}`}
+              cat={randomCat()}
+              row={rowIdx}
+              column={idx}
+              numberPosition={idx}
+              active
+            />
+          );
+        }
+        return square;
+      }));
+    }
     updateSquares(finalMap);
   };
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, updateIsDragged, isBeingDragged, catImageSelectedMap,
+      squares, rerenderBoard, catImageSelectedMap,
     }}
     >
       {children}
@@ -125,5 +242,5 @@ export default BoardContextProvider;
 export const useBoardContext = () => useContext(BoardContext);
 
 BoardContextProvider.propTypes = {
-  children: PropTypes.objectOf(PropTypes.node).isRequired,
+  children: PropTypes.objectOf(PropTypes.object).isRequired,
 };
