@@ -8,7 +8,7 @@
     "dev": "webpack-dev-server --config=webpack.dev.js",
     "build": "webpack --config=webpack.prod.js",
     "build:dev": "webpack --config=webpack.dev.js",
-    "dev-server": "node ./src/server/dev-server.js",
+    "dev-server": "node --inspect ./src/server/dev-server.js",
     "prod": "webpack --config ./webpack.prod.js",
     "server": "nodemon ./server/index.js"
   },

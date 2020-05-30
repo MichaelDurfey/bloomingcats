@@ -101,17 +101,18 @@ function updateRow(map, row, ...cordinates) {
 
 function updateColumn(map, column, row) {
   const mapCopy = [...map];
-  console.log('updatecolumn!');
-  for (let i = column; i < 5; i += 1) {
-    const { numberPosition } = mapCopy[row][i].props;
+  for (let i = row; i < row + 5; i += 1) {
+    // eslint-disable-next-line no-plusplus
+    const { numberPosition } = mapCopy[i][column].props;
     availableSquares[numberPosition] = numberPosition;
-    mapCopy[row][i] = (
+    mapCopy[i] = [...mapCopy[i]];
+    mapCopy[i][column] = (
       <Square
-        key={`${row}-${i}`}
+        key={`${i}-${column}`}
         cat={false}
         numberPosition={numberPosition}
-        row={row}
-        column={i}
+        row={i}
+        column={column}
         active={false}
       />
     );
@@ -138,17 +139,16 @@ function checkRows(map, match) {
   return { newMap, match };
 }
 function checkColumns(finalMap, match) {
-  const newMap = [...finalMap];
-  // TO DO
-  // for (let i = 0; i < 5; i += 1) {
-  //   for (let j = 0; j < 5; j += 1) {
-  //     const catIndex = (modifier) => newMap[j + modifier || 0][i].props.cat.index;
-  //     if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
-  //       newMap = updateColumn(finalMap, j, i, j + 1, j + 2, j + 3, j + 4);
-  //       match = true;
-  //     }
-  //   }
-  // }
+  let newMap = [...finalMap];
+  for (let j = 0; j < 8; j += 1) {
+    for (let i = 0; i < 5; i += 1) {
+      const catIndex = (modifier) => newMap[i + modifier || i][j].props.cat.index;
+      if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+        newMap = updateColumn(finalMap, j, i, j + 1, j + 2, j + 3, j + 4);
+        match = true;
+      }
+    }
+  }
   return { newMap, match };
 }
 function checkMajorDiag(finalMap, match) {
