@@ -78,44 +78,49 @@ const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
     );
   }));
 
-function updateRow(map, row, ...cordinates) {
-  const mapCopy = [...map];
-  const rowCopy = [...mapCopy[row]];
-  cordinates.forEach((col) => {
-    const { numberPosition } = rowCopy[col].props;
-    availableSquares[numberPosition] = numberPosition;
-    rowCopy[col] = (
-      <Square
-        key={`${row}-${col}`}
-        cat={false}
-        numberPosition={numberPosition}
-        row={row}
-        column={col}
-        active={false}
-      />
-    );
-  });
-  mapCopy[row] = rowCopy;
+function updateRow(map, row, i, index) {
+  const mapCopy = [...map.map((v) => [...v])];
+  for (let x = i; x < mapCopy.length; x += 1) {
+    if (mapCopy[row] && mapCopy[row][x] && mapCopy[row][x].props.cat.index === index) {
+      const { numberPosition } = mapCopy[row][x].props;
+      availableSquares[numberPosition] = numberPosition;
+      mapCopy[row][x] = (
+        <Square
+          key={`${row}-${x}`}
+          cat={false}
+          numberPosition={numberPosition}
+          row={row}
+          column={x}
+          active={false}
+        />
+      );
+    } else {
+      break;
+    }
+  }
   return mapCopy;
 }
 
-function updateColumn(map, column, row) {
-  const mapCopy = [...map];
-  for (let i = row; i < row + 5; i += 1) {
+function updateColumn(map, column, row, index) {
+  const mapCopy = [...map.map((v) => [...v])];
+  for (let i = row; i < mapCopy.length; i += 1) {
     // eslint-disable-next-line no-plusplus
-    const { numberPosition } = mapCopy[i][column].props;
-    availableSquares[numberPosition] = numberPosition;
-    mapCopy[i] = [...mapCopy[i]];
-    mapCopy[i][column] = (
-      <Square
-        key={`${i}-${column}`}
-        cat={false}
-        numberPosition={numberPosition}
-        row={i}
-        column={column}
-        active={false}
-      />
-    );
+    if (mapCopy[i][column].props.cat.index === index) {
+      const { numberPosition } = mapCopy[i][column].props;
+      availableSquares[numberPosition] = numberPosition;
+      mapCopy[i][column] = (
+        <Square
+          key={`${i}-${column}`}
+          cat={false}
+          numberPosition={numberPosition}
+          row={i}
+          column={column}
+          active={false}
+        />
+      );
+    } else {
+      break;
+    }
   }
   return mapCopy;
 }
@@ -126,13 +131,14 @@ function checkMatch(a, b, c, d, e) {
 }
 
 function checkRows(map, match) {
-  let newMap = [...map];
+  let newMap = map;
   map.forEach((row, idx) => {
     for (let i = 0; i < 5; i += 1) {
-      const catIndex = (modifier) => row[i + modifier || 0].props.cat.index;
+      const catIndex = (modifier) => row[i + modifier || i].props.cat.index;
       if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
-        newMap = updateRow(map, idx, i, i + 1, i + 2, i + 3, i + 4);
+        newMap = updateRow(map, idx, i, catIndex());
         match = true;
+        break;
       }
     }
   });
@@ -144,17 +150,102 @@ function checkColumns(finalMap, match) {
     for (let i = 0; i < 5; i += 1) {
       const catIndex = (modifier) => newMap[i + modifier || i][j].props.cat.index;
       if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
-        newMap = updateColumn(finalMap, j, i, j + 1, j + 2, j + 3, j + 4);
+        newMap = updateColumn(finalMap, j, i, catIndex());
         match = true;
+        break;
       }
     }
   }
   return { newMap, match };
 }
+
+function updateMajorDiag(finalMap, j, row, index) {
+  const majordiagCopy = [...finalMap.map((v) => [...v])];
+  let temp = j;
+  for (let x = row; x < majordiagCopy.length; x += 1) {
+    if (majordiagCopy[x] && majordiagCopy[x][temp] && majordiagCopy[x][temp].props.cat.index === index) {
+      const { numberPosition } = majordiagCopy[x][temp].props;
+      availableSquares[numberPosition] = numberPosition;
+      majordiagCopy[x][temp] = (
+        <Square
+          key={`${x}-${temp}`}
+          cat={false}
+          numberPosition={numberPosition}
+          row={x}
+          column={temp}
+          active={false}
+        />
+      );
+    } else {
+      break;
+    }
+    temp += 1;
+  }
+  return majordiagCopy;
+}
+
+function updateMinorDiag(finalMap, j, row, index) {
+  const minordiagCopy = [...finalMap.map((v) => [...v])];
+  let temp = row;
+  for (let x = j; x >= 0; x -= 1) {
+    if (!minordiagCopy[temp] || !minordiagCopy[temp][x]) {
+      x -= 1;
+    } else {
+      const { numberPosition } = minordiagCopy[temp][x].props;
+      const catIndex = minordiagCopy[temp][x].props.cat.index;
+      if (catIndex !== index) break;
+      availableSquares[numberPosition] = numberPosition;
+      minordiagCopy[temp][x] = (
+        <Square
+          key={`${temp}-${x}`}
+          cat={false}
+          numberPosition={numberPosition}
+          row={temp}
+          column={x}
+          active={false}
+        />
+      );
+      temp += 1;
+    }
+  }
+  return minordiagCopy;
+}
+
 function checkMajorDiag(finalMap, match) {
+  for (let i = -4; i < finalMap.length; i += 1) {
+    let row = 0;
+    for (let j = i; j < 5; j += 1) {
+      const catIndex = (modifier) => finalMap[row + modifier || row][j + modifier || j].props.cat.index;
+      if (finalMap[row] && finalMap[row + 4] && finalMap[row][j]) {
+        if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+          finalMap = updateMajorDiag(finalMap, j, row, catIndex());
+          match = true;
+          break;
+        }
+      }
+      row += 1;
+    }
+  }
   return { newMap: finalMap, match };
 }
+
 function checkMinorDiag(finalMap, match) {
+  for (let i = finalMap.length + 4; i > 3; i -= 1) {
+    let row = 0;
+    for (let j = i; j >= 4; j -= 1) {
+      const catIndex = (modifier) => finalMap[modifier ? row + modifier : row][modifier ? j - modifier : j].props.cat.index;
+      if (finalMap[row] && finalMap[row + 4] && finalMap[row][j]) {
+        // console.log('checkMatch', catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4));
+        // console.log('checkMatch', row + undefined || row, 'j', j, row + 1, 'j', j - 1, row + 2, 'j', j - 2, row + 3, 'j', j - 3, row + 4, 'j', 4 - 4 || 'HEY!!');
+        if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+          finalMap = updateMinorDiag(finalMap, j, row, catIndex());
+          match = true;
+          break;
+        }
+      }
+      row += 1;
+    }
+  }
   return { newMap: finalMap, match };
 }
 
@@ -224,6 +315,7 @@ const BoardContextProvider = ({ children }) => {
         }
         return square;
       }));
+      ({ newMap: finalMap } = checkMatches(finalMap));
     }
     updateSquares(finalMap);
   };

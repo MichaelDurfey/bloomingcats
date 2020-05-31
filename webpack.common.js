@@ -1,10 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path');
 
 module.exports = (env) => ({
   entry: {
     app: './src/client/App.jsx',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: '[name].[hash].js',
   },
   module: {
     rules: [
@@ -17,7 +24,7 @@ module.exports = (env) => ({
         test: /\.(png|jpe?g|gif)$/i,
         loader: 'file-loader',
         options: {
-          outputPath: 'dist/images',
+          outputPath: 'images',
         },
       },
       {
@@ -48,6 +55,7 @@ module.exports = (env) => ({
     extensions: ['.js', '.jsx', '.css'],
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
