@@ -20,8 +20,6 @@ import greyCatSelected from '../../../assets/5GreyCatSelected2.gif';
 import calicoCatSelected from '../../../assets/6CalicoCatSelected2.gif';
 import siameseCatSelected from '../../../assets/7SiameseCatSelected2.gif';
 
-// selected
-
 const catImageMap = [brownCat, whiteCat, blackCat, orangeCat, greyCat, calicoCat, siameseCat];
 const catImageSelectedMap = [brownCatSelected,
   whiteCatSelected,
@@ -47,23 +45,22 @@ function getRandomArrayOfNumsInclusive(max, length) {
   }
   return arr.slice(0, length);
 }
+
 const randomCat = () => {
   const index = Math.floor(Math.random() * 7);
   return { index, img: [catImageMap[index]] };
 };
-const played = {};
+
 const availableSquares = [];
 const randomThreeNumbersFirst = getRandomArrayOfNumsInclusive(80, 3);
+
 let counter = -1;
 const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
   // eslint-disable-next-line array-callback-return
   .map((arr, idx) => Array.from({ length: 9 }, (x, i) => {
     counter += 1;
     const active = randomThreeNumbersFirst.includes(counter);
-    if (active) {
-      played[idx] = played[idx] || {};
-      played[idx][i] = true;
-    } else {
+    if (!active) {
       availableSquares[counter] = counter;
     }
     return (
@@ -81,7 +78,8 @@ const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
 function updateRow(map, row, i, index, newScore) {
   const mapCopy = [...map.map((v) => [...v])];
   for (let x = i; x < mapCopy.length; x += 1) {
-    if (mapCopy[row] && mapCopy[row][x] && mapCopy[row][x].props.cat.index === index) {
+    if (mapCopy[row] && mapCopy[row][x]
+      && mapCopy[row][x].props.cat.index === index) {
       const { numberPosition } = mapCopy[row][x].props;
       availableSquares[numberPosition] = numberPosition;
       newScore += 1;
@@ -131,7 +129,8 @@ function updateMajorDiag(finalMap, j, row, index, newScore) {
   const majordiagCopy = [...finalMap.map((v) => [...v])];
   let temp = j;
   for (let x = row; x < majordiagCopy.length; x += 1) {
-    if (majordiagCopy[x] && majordiagCopy[x][temp] && majordiagCopy[x][temp].props.cat.index === index) {
+    if (majordiagCopy[x] && majordiagCopy[x][temp]
+      && majordiagCopy[x][temp].props.cat.index === index) {
       const { numberPosition } = majordiagCopy[x][temp].props;
       availableSquares[numberPosition] = numberPosition;
       newScore += 1;
@@ -183,15 +182,18 @@ function updateMinorDiag(finalMap, j, row, index, newScore) {
 
 function checkMatch(a, b, c, d, e) {
   // eslint-disable-next-line prefer-rest-params
-  return Array.from(arguments).every((value) => typeof value === 'number') && a === b && b === c && c === d && d === e;
+  return Array.from(arguments).every((value) => typeof value === 'number')
+  && a === b && b === c && c === d && d === e;
 }
 
 function checkRows(map, match, newScore) {
   let newMap = map;
   map.forEach((row, idx) => {
     for (let i = 0; i < 5; i += 1) {
-      const catIndex = (modifier) => row[modifier ? i + modifier : i].props.cat.index;
-      if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+      const catIndex = (modifier) => row[modifier
+        ? i + modifier : i].props.cat.index;
+      if (checkMatch(catIndex(), catIndex(1),
+        catIndex(2), catIndex(3), catIndex(4))) {
         ({ newMap, newScore } = updateRow(map, idx, i, catIndex(), newScore));
         match = true;
         break;
@@ -204,8 +206,10 @@ function checkColumns(finalMap, match, newScore) {
   let newMap = [...finalMap];
   for (let j = 0; j <= 8; j += 1) {
     for (let i = 0; i < 5; i += 1) {
-      const catIndex = (modifier) => newMap[modifier ? i + modifier : i][j].props.cat.index;
-      if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+      const catIndex = (modifier) => newMap[modifier
+        ? i + modifier : i][j].props.cat.index;
+      if (checkMatch(catIndex(), catIndex(1),
+        catIndex(2), catIndex(3), catIndex(4))) {
         ({ newMap, newScore } = updateColumn(finalMap, j, i, catIndex(), newScore));
         match = true;
         break;
@@ -220,9 +224,12 @@ function checkMajorDiag(finalMap, match, newScore) {
   for (let i = -4; i < finalMap.length; i += 1) {
     let row = 0;
     for (let j = i; j < 5; j += 1) {
-      const catIndex = (modifier) => finalMap[modifier ? row + modifier : row][modifier ? j + modifier : j].props.cat.index;
+      const catIndex = (modifier) => finalMap[modifier
+        ? row + modifier : row][modifier
+        ? j + modifier : j].props.cat.index;
       if (finalMap[row] && finalMap[row + 4] && finalMap[row][j]) {
-        if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+        if (checkMatch(catIndex(), catIndex(1),
+          catIndex(2), catIndex(3), catIndex(4))) {
           ({ newMap, newScore } = updateMajorDiag(finalMap, j, row, catIndex(), newScore));
           match = true;
           break;
@@ -239,9 +246,12 @@ function checkMinorDiag(finalMap, match, newScore) {
   for (let i = finalMap.length + 4; i > 3; i -= 1) {
     let row = 0;
     for (let j = i; j >= 4; j -= 1) {
-      const catIndex = (modifier) => finalMap[modifier ? row + modifier : row][modifier ? j - modifier : j].props.cat.index;
+      const catIndex = (modifier) => finalMap[modifier
+        ? row + modifier : row][modifier
+        ? j - modifier : j].props.cat.index;
       if (finalMap[row] && finalMap[row + 4] && finalMap[row][j]) {
-        if (checkMatch(catIndex(), catIndex(1), catIndex(2), catIndex(3), catIndex(4))) {
+        if (checkMatch(catIndex(), catIndex(1),
+          catIndex(2), catIndex(3), catIndex(4))) {
           ({ newMap, newScore } = updateMinorDiag(finalMap, j, row, catIndex(), newScore));
           match = true;
           break;
@@ -296,34 +306,33 @@ const BoardContextProvider = ({ children }) => {
     );
     availableSquares[oldCat.numberPosition] = oldCat.numberPosition;
     availableSquares[newCat.numberPosition] = undefined;
-    const totalAvailableSquares = availableSquares.filter((value) => typeof value === 'number');
-    played[newCat.row] = played[newCat.row] || {};
-    played[newCat.row][newCat.column] = true;
-    played[oldCat.row] = played[oldCat.row] || {};
-    played[oldCat.row][oldCat.column] = undefined;
+    const totalAvailableSquares = availableSquares
+      .filter((value) => typeof value === 'number');
     const randomNums = getRandomArrayOfNumsInclusive(totalAvailableSquares.length - 1, 3);
-    const randomThreeAvailableNumbers = randomNums.map((value) => totalAvailableSquares[value]);
+    const randomThreeAvailableNumbers = randomNums
+      .map((value) => totalAvailableSquares[value]);
     let finalMapCounter = -1;
     const { match, newMap: matchedMap } = checkMatches(newMap);
     let finalMap = matchedMap;
     if (!match) {
-      finalMap = newMap.map((arr, rowIdx) => arr.map((square, idx) => {
-        finalMapCounter += 1;
-        if (randomThreeAvailableNumbers.includes(finalMapCounter)) {
-          availableSquares[finalMapCounter] = undefined;
-          return (
-            <Square
-              key={`${rowIdx}-${idx}`}
-              cat={randomCat()}
-              row={rowIdx}
-              column={idx}
-              numberPosition={finalMapCounter}
-              active
-            />
-          );
-        }
-        return square;
-      }));
+      finalMap = newMap.map((arr, rowIdx) => arr
+        .map((square, idx) => {
+          finalMapCounter += 1;
+          if (randomThreeAvailableNumbers.includes(finalMapCounter)) {
+            availableSquares[finalMapCounter] = undefined;
+            return (
+              <Square
+                key={`${rowIdx}-${idx}`}
+                cat={randomCat()}
+                row={rowIdx}
+                column={idx}
+                numberPosition={finalMapCounter}
+                active
+              />
+            );
+          }
+          return square;
+        }));
       ({ newMap: finalMap } = checkMatches(finalMap));
     }
     updateSquares(finalMap);
