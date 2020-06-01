@@ -1,0 +1,15 @@
+:local(.scoreContainer){ 
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  flex-basis: 35%;
+  justify-content: center;
+  width: 250px;
+  height: 100px;
+  border: red;
+  font-size: 30px;
+}
+
+:local(.scoreContainer p){
+    color: white;
+}

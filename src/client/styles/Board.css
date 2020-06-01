@@ -1,7 +1,7 @@
 :local(.board) {
   display: grid;
-  grid-template-columns: repeat(9, minmax(45px, 7vw));
-  grid-template-rows: repeat(9, minmax(45px, 7vw)) ;
+  grid-template-columns: repeat(9, minmax(45px, 9vh));
+  grid-template-rows: repeat(9, minmax(45px, 9vh)) ;
 }
 
 :local(.boardContainer){ 
