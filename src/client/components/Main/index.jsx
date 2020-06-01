@@ -13,7 +13,6 @@ import styles from '../../styles/Main.css';
 const FourOhFour = () => 404;
 
 export default function Main() {
-  console.log();
   return (
     <>
       <Header />
