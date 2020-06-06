@@ -10,7 +10,7 @@ import { useBoardContext } from './BoardContext';
 
 const Square = (props) => {
   const {
-    active, cat, numberPosition, row, column,
+    active, cat, numberPosition, row, column, noClearPath,
   } = props;
   const { squares, rerenderBoard } = useBoardContext();
   const [, drop] = useDrop({
@@ -22,6 +22,12 @@ const Square = (props) => {
       canDrop: !!mon.canDrop(),
     }),
   });
+
+  const renderComponent = () => {
+    if (noClearPath) return <p className={styles.p}>No clear path</p>;
+    if (active) return <Cat numberPosition={numberPosition} row={row} column={column} cat={cat} />;
+    return null;
+  };
   return (
     <div
       ref={drop}
@@ -29,7 +35,7 @@ const Square = (props) => {
       id={numberPosition}
       className={styles.square}
     >
-      { active ? <Cat numberPosition={numberPosition} row={row} column={column} cat={cat} /> : null}
+      { renderComponent() }
     </div>
   );
 };
@@ -41,5 +47,10 @@ Square.propTypes = {
   cat: PropTypes.shape({ index: PropTypes.number, img: PropTypes.string }).isRequired,
   numberPosition: PropTypes.number.isRequired,
   row: PropTypes.number.isRequired,
+  noClearPath: PropTypes.bool,
   column: PropTypes.number.isRequired,
+};
+
+Square.defaultProps = {
+  noClearPath: false,
 };

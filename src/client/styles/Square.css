@@ -15,6 +15,12 @@
   border-right: solid #dfdfdf 1px;
 }
 
+:local(p){
+  display: flex;
+  padding: 20px;
+  text-align: center;
+}
+
 :local(.square:nth-last-child(-n+9)) {
   border-bottom: solid #dfdfdf 1px;
 }
