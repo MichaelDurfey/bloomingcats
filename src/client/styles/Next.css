@@ -1,0 +1,9 @@
+:local(.next) {
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background: white;
+}

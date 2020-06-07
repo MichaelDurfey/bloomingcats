@@ -11,3 +11,9 @@
   flex-basis: 35%;
   justify-content: center;
 }
+
+:local(.nextAndSquares) {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}

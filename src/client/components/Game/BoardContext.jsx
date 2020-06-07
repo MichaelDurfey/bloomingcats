@@ -15,6 +15,7 @@ const randomCat = () => {
 
 const availableSquares = [];
 const randomThreeNumbersFirst = getRandomArrayOfNumsInclusive(80, 3);
+const nextThreeCats = () => Array.from({ length: 3 }, () => randomCat());
 
 let counter = -1;
 const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
@@ -229,7 +230,7 @@ const BoardContext = React.createContext(null);
 const BoardContextProvider = ({ children }) => {
   const [squares, updateSquares] = useState(catMapDefault);
   const [score, updateScore] = useState(0);
-
+  let nextThree = nextThreeCats();
   const checkMatches = (finalMap) => {
     let newMap = [...finalMap];
     let match;
@@ -315,7 +316,7 @@ const BoardContextProvider = ({ children }) => {
             return (
               <Square
                 key={`${rowIdx}-${idx}`}
-                cat={randomCat()}
+                cat={nextThree.shift()}
                 row={rowIdx}
                 column={idx}
                 numberPosition={finalMapCounter}
@@ -326,13 +327,14 @@ const BoardContextProvider = ({ children }) => {
           return square;
         }));
       ({ newMap: finalMap } = checkMatches(finalMap));
+      nextThree = nextThreeCats();
     }
     updateSquares(finalMap);
   };
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, catImageSelectedMap, score,
+      squares, rerenderBoard, catImageSelectedMap, score, nextThree,
     }}
     >
       {children}
