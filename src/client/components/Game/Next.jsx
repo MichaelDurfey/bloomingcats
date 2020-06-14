@@ -5,11 +5,11 @@ import { useBoardContext } from './BoardContext';
 import Cat from './Cat';
 
 export default function Next() {
-  const { next } = styles;
+  const { next, cat } = styles;
   const { nextThree } = useBoardContext();
   return (
     <div className={next}>
-      {nextThree.map((i) => <Cat cat={i} />)}
+      {nextThree.map((i, idx) => <Cat className={cat} key={`cat-${`${i.index}${idx}`}`} cat={i} />)}
     </div>
   );
 }

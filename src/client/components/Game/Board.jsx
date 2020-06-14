@@ -6,15 +6,15 @@ import Score from './Score';
 import Next from './Next';
 
 export default function Board() {
-  const { board, boardContainer, nextAndSquares } = styles;
+  const { board, boardContainer, nextAndScore } = styles;
   const { squares } = useBoardContext();
   return (
     <div className={boardContainer}>
-      <Score />
-      <div className={nextAndSquares}>
-        <div className={board}>
-          { squares }
-        </div>
+      <div className={board}>
+        { squares }
+      </div>
+      <div className={nextAndScore}>
+        <Score />
         <Next />
       </div>
     </div>

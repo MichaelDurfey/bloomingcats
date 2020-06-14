@@ -12,11 +12,11 @@ const Square = (props) => {
   const {
     active, cat, numberPosition, row, column, noClearPath,
   } = props;
-  const { squares, rerenderBoard } = useBoardContext();
+  const { squares, rerenderBoard, playable } = useBoardContext();
   const [, drop] = useDrop({
     accept: ItemTypes.CAT,
     drop: (oldCat) => rerenderBoard({ row, column, numberPosition }, oldCat.position, oldCat.cat),
-    canDrop: () => !squares[row][column].props.active,
+    canDrop: () => !squares[row][column].props.active && playable,
     collect: (mon) => ({
       isOver: !!mon.isOver(),
       canDrop: !!mon.canDrop(),

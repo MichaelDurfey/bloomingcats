@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <>
       <Navbar bg="dark" variant="dark">
-        <Navbar.Brand href="/">Blooming Cats</Navbar.Brand>
+        <Navbar.Brand href="/">Kitty Pop</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/game">Game</Nav.Link>
           <Nav.Link href="/rules">Rules</Nav.Link>

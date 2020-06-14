@@ -15,7 +15,7 @@
   border-right: solid #dfdfdf 1px;
 }
 
-:local(p){
+:local(.square p){
   display: flex;
   padding: 20px;
   text-align: center;

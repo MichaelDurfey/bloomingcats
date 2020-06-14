@@ -1,0 +1,11 @@
+:local(.container){
+    display: flex;
+    flex-flow: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 2%;
+}
+
+:local(.image) {
+    width: 20%;
+}

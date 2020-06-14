@@ -1,21 +1,23 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-param-reassign */
 /* eslint-disable react/no-array-index-key */
-import React, { useContext, useState } from 'react';
+import React, {
+  useContext, useState, useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
 import Square from './Square';
 import { catImageMap, catImageSelectedMap } from './images';
 import { getRandomArrayOfNumsInclusive, clearPath } from './boardContextHelper';
 
-const randomCat = () => {
+export const randomCat = () => {
   const index = Math.floor(Math.random() * 7);
-  return { index, img: [catImageMap[index]] };
+  return { index, img: catImageMap[index] };
 };
 
 const availableSquares = [];
 const randomThreeNumbersFirst = getRandomArrayOfNumsInclusive(80, 3);
-const nextThreeCats = () => Array.from({ length: 3 }, () => randomCat());
+const defaultCat = { img: '', index: undefined, numberPosition: undefined };
 
 let counter = -1;
 const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
@@ -29,7 +31,7 @@ const catMapDefault = Array.from({ length: 9 })// 9 x 9 board;
     return (
       <Square
         key={`${idx}-${i}`}
-        cat={active && randomCat()}
+        cat={active ? randomCat() : defaultCat}
         numberPosition={counter}
         row={idx}
         column={i}
@@ -49,7 +51,7 @@ function updateRow(map, row, i, index, newScore) {
       mapCopy[row][x] = (
         <Square
           key={`${row}-${x}`}
-          cat={false}
+          cat={defaultCat}
           numberPosition={numberPosition}
           row={row}
           column={x}
@@ -74,7 +76,7 @@ function updateColumn(map, column, row, index, newScore) {
       mapCopy[i][column] = (
         <Square
           key={`${i}-${column}`}
-          cat={false}
+          cat={defaultCat}
           numberPosition={numberPosition}
           row={i}
           column={column}
@@ -100,7 +102,7 @@ function updateMajorDiag(finalMap, j, row, index, newScore) {
       majordiagCopy[x][temp] = (
         <Square
           key={`${x}-${temp}`}
-          cat={false}
+          cat={defaultCat}
           numberPosition={numberPosition}
           row={x}
           column={temp}
@@ -130,7 +132,7 @@ function updateMinorDiag(finalMap, j, row, index, newScore) {
       minordiagCopy[temp][x] = (
         <Square
           key={`${temp}-${x}`}
-          cat={false}
+          cat={defaultCat}
           numberPosition={numberPosition}
           row={temp}
           column={x}
@@ -230,7 +232,9 @@ const BoardContext = React.createContext(null);
 const BoardContextProvider = ({ children }) => {
   const [squares, updateSquares] = useState(catMapDefault);
   const [score, updateScore] = useState(0);
-  let nextThree = nextThreeCats();
+  const nextThreeCats = useCallback(() => Array.from({ length: 3 }, () => randomCat()), []);
+  const [nextThree, getNextThreeCats] = useState(nextThreeCats());
+  const [playable, updatePlayable] = useState(true);
   const checkMatches = (finalMap) => {
     let newMap = [...finalMap];
     let match;
@@ -260,6 +264,7 @@ const BoardContextProvider = ({ children }) => {
           active={false}
         />
       );
+      updatePlayable(false);
       updateSquares(newMap.map((row) => [...row]));
       setTimeout(() => {
         const pathCopy = [...squares.map((r) => [...r])];
@@ -273,6 +278,7 @@ const BoardContextProvider = ({ children }) => {
             active={false}
           />
         );
+        updatePlayable(true);
         updateSquares(pathCopy);
       }, 1500);
       return;
@@ -280,7 +286,7 @@ const BoardContextProvider = ({ children }) => {
     newMap[oldCat.row][oldCat.column] = (
       <Square
         key={`${oldCat.row}-${oldCat.column}`}
-        cat={{}}
+        cat={defaultCat}
         numberPosition={oldCat.numberPosition}
         row={oldCat.row}
         column={oldCat.column}
@@ -307,6 +313,7 @@ const BoardContextProvider = ({ children }) => {
     let finalMapCounter = -1;
     const { match, newMap: matchedMap } = checkMatches(newMap);
     let finalMap = matchedMap;
+
     if (!match) {
       finalMap = newMap.map((arr, rowIdx) => arr
         .map((square, idx) => {
@@ -327,14 +334,14 @@ const BoardContextProvider = ({ children }) => {
           return square;
         }));
       ({ newMap: finalMap } = checkMatches(finalMap));
-      nextThree = nextThreeCats();
+      getNextThreeCats(nextThreeCats());
     }
     updateSquares(finalMap);
   };
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, catImageSelectedMap, score, nextThree,
+      squares, rerenderBoard, catImageSelectedMap, score, nextThree, playable,
     }}
     >
       {children}
@@ -346,5 +353,7 @@ export default BoardContextProvider;
 export const useBoardContext = () => useContext(BoardContext);
 
 BoardContextProvider.propTypes = {
-  children: PropTypes.objectOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.symbol, PropTypes.func, PropTypes.object]),
+  ).isRequired,
 };

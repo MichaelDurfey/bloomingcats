@@ -8,8 +8,9 @@ import { useBoardContext } from './BoardContext';
 
 
 export default function Cat({
-  cat, numberPosition, row, column,
+  cat, numberPosition, row, column, className,
 }) {
+  const { catImageSelectedMap, playable } = useBoardContext();
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: ItemTypes.CAT, position: { row, column, numberPosition }, cat,
@@ -17,24 +18,32 @@ export default function Cat({
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
       position: monitor,
+      canDrag: playable,
     }),
   });
-  const { catImageSelectedMap } = useBoardContext();
   return (
     <>
       <DragPreviewImage
         connect={preview}
         src={catImageSelectedMap[cat.index]}
       />
-      {(!isDragging && <img ref={drag} className={styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />)
+      {(!isDragging && <img ref={drag} className={className || styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />)
       || <img ref={drag} className={styles.image} id={numberPosition} src={catImageSelectedMap[cat.index]} alt="cat" role="presentation" />}
     </>
   );
 }
 
 Cat.propTypes = {
-  cat: PropTypes.string.isRequired,
-  numberPosition: PropTypes.number.isRequired,
-  row: PropTypes.number.isRequired,
-  column: PropTypes.number.isRequired,
+  cat: PropTypes.shape({ img: PropTypes.string, index: PropTypes.number }).isRequired,
+  numberPosition: PropTypes.number,
+  row: PropTypes.number,
+  column: PropTypes.number,
+  className: PropTypes.objectOf(PropTypes.string),
+};
+
+Cat.defaultProps = {
+  numberPosition: undefined,
+  row: undefined,
+  column: undefined,
+  className: undefined,
 };

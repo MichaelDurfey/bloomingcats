@@ -1,9 +1,36 @@
 :local(.next) {
-    width: auto;
-    height: auto;
-    margin-left: 15px;
     display: flex;
     flex-flow: column;
     align-items: center;
-    background: white;
+    background: rgba(255, 255, 255, 0.637);
+    border-radius: 12px;
+}
+
+.next {
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
+}
+
+.cat {
+    opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+    animation-duration: .3s;
+    width: 7vh;
+    height: 7vh;
+    max-width: 69px;
+    max-height: 69px;
+}
+
+@keyframes fadeInOpacity {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
