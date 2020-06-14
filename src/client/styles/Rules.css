@@ -1,0 +1,10 @@
+:local(.rulesJumbotron) {
+    flex-flow: column;
+    align-items: center;
+    display: flex;
+}
+:local(.rulesContainer) {
+    display: flex;
+    width: 75%;
+    flex-flow: column;
+}
