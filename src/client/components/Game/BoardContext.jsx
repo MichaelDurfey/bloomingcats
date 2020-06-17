@@ -256,7 +256,7 @@ const BoardContextProvider = ({ children }) => {
       newMap[newCat.row][newCat.column] = (
         <Square
           key={`${newCat.row}-${newCat.column}`}
-          cat={cat}
+          cat={defaultCat}
           numberPosition={newCat.numberPosition}
           row={newCat.row}
           noClearPath
@@ -271,15 +271,15 @@ const BoardContextProvider = ({ children }) => {
         pathCopy[newCat.row][newCat.column] = (
           <Square
             key={`${newCat.row}-${newCat.column}`}
-            cat={cat}
+            cat={defaultCat}
             numberPosition={newCat.numberPosition}
             row={newCat.row}
             column={newCat.column}
             active={false}
           />
         );
-        updatePlayable(true);
         updateSquares(pathCopy);
+        updatePlayable(true);
       }, 1500);
       return;
     }
