@@ -17,9 +17,11 @@
 }
 
 :local(.square p){
-  display: flex;
-  padding: 20px;
+  padding: 0;
+  margin: 0;
   text-align: center;
+  color: black;
+  font-size: 4vh;
 }
 
 :local(.square:nth-last-child(-n+9)) {

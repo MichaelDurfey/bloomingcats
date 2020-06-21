@@ -24,7 +24,7 @@ const Square = (props) => {
   });
 
   const renderComponent = () => {
-    if (noClearPath) return <p className={styles.p}>No clear path</p>;
+    if (noClearPath) return <p className={styles.p}>X</p>;
     if (active) return <Cat numberPosition={numberPosition} row={row} column={column} cat={cat} />;
     return null;
   };
