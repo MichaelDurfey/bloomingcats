@@ -4,3 +4,11 @@
   max-width: 69px;
   max-height: 69px;
 }
+
+:local(.dragSource) {
+  width: 5vh;
+  height: 4vh;
+  max-width: 69px;
+  max-height: 69px;
+  position: absolute;
+}

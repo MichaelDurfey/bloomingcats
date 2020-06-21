@@ -21,13 +21,19 @@ export default function Cat({
       canDrag: playable,
     }),
   });
+  const dragSource = () => (
+    <>
+      <div ref={drag} className={styles.dragSource} />
+      <img className={className || styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />
+    </>
+  );
   return (
     <>
       <DragPreviewImage
         connect={preview}
         src={catImageSelectedMap[cat.index]}
       />
-      {(!isDragging && <img ref={drag} className={className || styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />)
+      {(!isDragging && dragSource())
       || <img ref={drag} className={styles.image} id={numberPosition} src={catImageSelectedMap[cat.index]} alt="cat" role="presentation" />}
     </>
   );
