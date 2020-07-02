@@ -1,6 +1,6 @@
 :local(.image) {
-  width: 7vh;
-  height: 7vh;
+  width: 7vmin;
+  height: 7vmin;
   max-width: 69px;
   max-height: 69px;
 }
