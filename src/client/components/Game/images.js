@@ -12,8 +12,10 @@ import orangeCatSelected from '../../../assets/4OrangeCatSelected.gif';
 import greyCatSelected from '../../../assets/5GreyCatSelected.gif';
 import calicoCatSelected from '../../../assets/6CalicoCatSelected.gif';
 import siameseCatSelected from '../../../assets/7SiameseCatSelected.gif';
-import ruleImage1 from '../../../assets/ruleImage1.png';
-import ruleImage2 from '../../../assets/ruleImage2.png';
+import ruleImage1 from '../../../assets/optimized/ruleImage1Optimized.png';
+import ruleImage2 from '../../../assets/optimized/ruleImage2Optimized.png';
+import ruleImage1webp from '../../../assets/optimized/ruleImage1Optimized.webp';
+import ruleImage2webp from '../../../assets/optimized/ruleImage2Optimized.webp';
 
 const catImageMap = [brownCat, whiteCat, blackCat, orangeCat, greyCat, calicoCat, siameseCat];
 const catImageSelectedMap = [brownCatSelected,
@@ -25,5 +27,5 @@ const catImageSelectedMap = [brownCatSelected,
   siameseCatSelected];
 
 export {
-  catImageMap, catImageSelectedMap, ruleImage1, ruleImage2,
+  catImageMap, catImageSelectedMap, ruleImage1, ruleImage2, ruleImage1webp, ruleImage2webp,
 };

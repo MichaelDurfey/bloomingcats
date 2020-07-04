@@ -4,7 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { catImageMap, ruleImage1, ruleImage2 } from '../Game/images';
+import {
+  catImageMap, ruleImage1, ruleImage2, ruleImage1webp, ruleImage2webp,
+} from '../Game/images';
 
 
 import styles from '../../styles/Rules.css';
@@ -65,7 +67,10 @@ export default function Rules() {
                   {' '}
                   Score points by arranging at least 5 cats in a row in any direction. Score increases by 1 for every cat that is removed, so if 5 cats are removed that is +5 points. If you score points no new cats are placed on the board.
                   <br />
-                  <img src={ruleImage1} alt="" className={styles.ruleImage1} />
+                  <picture>
+                    <source srcSet={ruleImage1webp} type="image/webp" />
+                    <img src={ruleImage1} alt="" className={styles.ruleImage1} />
+                  </picture>
                 </li>
                 <li>
                   <b>
@@ -78,7 +83,10 @@ export default function Rules() {
                   &apos; will be shown.
                   <br />
                   <br />
-                  <img src={ruleImage2} alt="" className={styles.ruleImage1} />
+                  <picture>
+                    <source srcSet={ruleImage2webp} type="image/webp" />
+                    <img src={ruleImage2} alt="" className={styles.ruleImage1} />
+                  </picture>
                 </li>
               </ol>
             </section>

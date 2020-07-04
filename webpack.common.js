@@ -20,7 +20,7 @@ module.exports = (env) => ({
         use: ['babel-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
+        test: /\.(png|jpe?g|gif|webp)$/i,
         loader: 'file-loader',
         options: {
           outputPath: 'images',
