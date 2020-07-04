@@ -48,6 +48,7 @@
 }
 :local(.nextAndScore div) {
   padding: 7px;
+  min-height: 120px;
 }
 
 @media only screen and (max-width: 1000px) {
