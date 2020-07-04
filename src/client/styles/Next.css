@@ -1,12 +1,14 @@
 :local(.next) {
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     align-items: center;
     background: rgba(255, 255, 255, 0.637);
     border-radius: 12px;
+    margin-bottom: 10px;
+    margin-left: 20px;
 }
 
-.next {
+:local(.next) {
     opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;
@@ -14,7 +16,7 @@
 	animation-duration: 1s;
 }
 
-.cat {
+:local(.cat) {
     opacity: 1;
 	animation-name: fadeInOpacity;
 	animation-iteration-count: 1;

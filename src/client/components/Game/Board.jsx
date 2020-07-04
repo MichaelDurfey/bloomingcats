@@ -10,12 +10,12 @@ export default function Board() {
   const { squares } = useBoardContext();
   return (
     <div className={boardContainer}>
-      <div className={board}>
-        { squares }
-      </div>
       <div className={nextAndScore}>
         <Score />
         <Next />
+      </div>
+      <div className={board}>
+        { squares }
       </div>
     </div>
   );

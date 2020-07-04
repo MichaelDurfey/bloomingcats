@@ -21,11 +21,12 @@
 
 :local(.boardContainer){ 
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
   align-items: center;
   flex-basis: 35%;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 2%;
+  height: 100vh;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -40,27 +41,20 @@
 
 :local(.nextAndScore) {
   display: flex;
-  flex-flow: column;
-  height: 100vh;
-  padding: 7px;
-  align-items: center;
-  justify-content: flex-start;
+  flex-flow: row;
+  height: 85px;
+  align-items: flex-end;
+  justify-content: center;
 }
-:local(.nextAndScore div) {
-  padding: 7px;
-  min-height: 120px;
+:local(.nextAndScore) {
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
 }
 
 @media only screen and (max-width: 1000px) {
   :local(.nextAndScore) {
     width: 100%;
-    flex-flow: row;
-    align-items: flex-start;
-    justify-content: center;
-  }
-  :local(.nextAndScore div) {
-    margin: 20px;
-    padding: 7px;
   }
 }
 

@@ -1,17 +1,20 @@
 :local(.scoreContainer){ 
   display: flex;
   flex-basis: 12%;
-  height: 100px;
-  font-size: 30px;
+  height: 100%;
+  font-size: 20px;
+  margin-right: 20px;
 }
 
 :local(.scoreText) {
   display: flex;
   flex-flow: column;
+  justify-content: flex-end;
   align-items: center;
   color: white;
 }
 
 :local(.scoreContainer p){
     color: white;
+    font-size: 25px;
 }

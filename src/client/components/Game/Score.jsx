@@ -3,17 +3,17 @@ import styles from '../../styles/Score.css';
 import { useBoardContext } from './BoardContext';
 
 export default function Board() {
-  const { scoreContainer, scoreText } = styles;
+  const { scoreContainer, scoreText, scoreNumber } = styles;
   const { score } = useBoardContext();
   return (
     <div className={scoreContainer}>
       <div className={scoreText}>
-        <h1>
+        <h3>
           Score
-        </h1>
-        <p>
+        </h3>
+        <h3 className={scoreNumber}>
           {score }
-        </p>
+        </h3>
       </div>
     </div>
   );
