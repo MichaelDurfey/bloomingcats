@@ -2,6 +2,7 @@
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = (env) => ({
   entry: {
@@ -58,6 +59,7 @@ module.exports = (env) => ({
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
-  ],
+    env.analyze && new BundleAnalyzerPlugin(),
+  ].filter(Boolean),
   devtool: 'source-map',
 });
