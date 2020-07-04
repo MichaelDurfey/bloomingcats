@@ -11,10 +11,12 @@ export default function Home() {
       <Container>
         <Row>
           <Col className={styles.container}>
-            <h1>
-              Welcome to kitty pop!
-            </h1>
-            <img alt="" className={styles.image} src={randomCat().img} />
+            <div className={styles.text}>
+              <h1>
+                Welcome to Kitten Pop!
+              </h1>
+              <img alt="" className={styles.image} src={randomCat().img} />
+            </div>
           </Col>
         </Row>
       </Container>
