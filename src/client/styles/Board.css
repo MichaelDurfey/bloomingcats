@@ -26,7 +26,7 @@
   flex-basis: 35%;
   justify-content: flex-start;
   padding: 2%;
-  height: 100vh;
+  height: 100%;
 }
 
 @media only screen and (max-width: 1000px) {
@@ -55,6 +55,9 @@
 @media only screen and (max-width: 1000px) {
   :local(.nextAndScore) {
     width: 100%;
+  }
+  :local(.board) {
+    height: 100vh;
   }
 }
 
