@@ -1,0 +1,9 @@
+:local(.container) {
+  display: flex;
+  flex-basis: 10%;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  
+}

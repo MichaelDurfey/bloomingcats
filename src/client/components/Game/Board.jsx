@@ -4,6 +4,7 @@ import styles from '../../styles/Board.css';
 import { useBoardContext } from './BoardContext';
 import Score from './Score';
 import Next from './Next';
+import Music from './Music';
 
 export default function Board() {
   const { board, boardContainer, nextAndScore } = styles;
@@ -13,6 +14,7 @@ export default function Board() {
       <div className={nextAndScore}>
         <Score />
         <Next />
+        <Music />
       </div>
       <div className={board}>
         { squares }
