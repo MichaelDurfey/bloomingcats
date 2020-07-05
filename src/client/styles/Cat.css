@@ -6,8 +6,8 @@
 }
 
 :local(.dragSource) {
-  width: 5vh;
-  height: 4vh;
+  width: 6vh;
+  height: 5vh;
   max-width: 69px;
   max-height: 69px;
   position: absolute;
