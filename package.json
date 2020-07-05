@@ -9,8 +9,9 @@
     "build": "webpack --config=webpack.prod.js",
     "build:dev": "webpack --config=webpack.dev.js",
     "dev-server": "node --inspect ./src/server/dev-server.js",
-    "prod": "webpack --config ./webpack.prod.js",
-    "server": "nodemon ./server/index.js"
+    "prod": "webpack --config=./webpack.prod.js",
+    "server": "nodemon ./server/index.js",
+    "analyze": "webpack --env.analyze=true --config=./webpack.prod.js"
   },
   "repository": {
     "type": "git",
@@ -65,6 +66,7 @@
     "prettier": "^2.0.5",
     "style-loader": "^1.2.1",
     "webpack": "^4.43.0",
+    "webpack-bundle-analyzer": "^3.8.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.2"

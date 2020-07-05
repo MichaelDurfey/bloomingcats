@@ -21,10 +21,10 @@ module.exports = (env) => ({
         use: ['babel-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|webp)$/i,
+        test: /\.(png|jpe?g|gif|webp|mp3)$/i,
         loader: 'file-loader',
         options: {
-          outputPath: 'images',
+          outputPath: 'assets',
           name: '[name].[ext]',
         },
       },
