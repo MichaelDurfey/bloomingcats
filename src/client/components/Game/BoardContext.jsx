@@ -235,6 +235,7 @@ const BoardContextProvider = ({ children }) => {
   const nextThreeCats = useCallback(() => Array.from({ length: 3 }, () => randomCat()), []);
   const [nextThree, getNextThreeCats] = useState(nextThreeCats());
   const [playable, updatePlayable] = useState(true);
+  const [gameOver, updateGameOver] = useState(false);
   const checkMatches = (finalMap) => {
     let newMap = [...finalMap];
     let match;
@@ -337,11 +338,14 @@ const BoardContextProvider = ({ children }) => {
       getNextThreeCats(nextThreeCats());
     }
     updateSquares(finalMap);
+    if (!availableSquares.filter((square) => square).length) {
+      updateGameOver(true);
+    }
   };
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, catImageSelectedMap, score, nextThree, playable,
+      squares, rerenderBoard, catImageSelectedMap, score, nextThree, playable, gameOver,
     }}
     >
       {children}

@@ -6,8 +6,10 @@ import Score from './Score';
 import Next from './Next';
 
 export default function Board() {
-  const { board, boardContainer, nextAndScore } = styles;
-  const { squares } = useBoardContext();
+  const {
+    board, boardContainer, nextAndScore,
+  } = styles;
+  const { squares, gameOver } = useBoardContext();
   return (
     <div className={boardContainer}>
       <div className={nextAndScore}>
@@ -17,6 +19,11 @@ export default function Board() {
       <div className={board}>
         { squares }
       </div>
+      { gameOver && (
+      <div className={styles.gameOverContainer}>
+        <h1 className={styles.gameOverText}>Game over</h1>
+      </div>
+      )}
     </div>
   );
 }

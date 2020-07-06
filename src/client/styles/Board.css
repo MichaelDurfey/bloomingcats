@@ -52,6 +52,20 @@
   display: flex;
 }
 
+:local(.gameOverContainer) {
+  display: flex;
+  height: 50vh;
+  width: 100%;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+:local(.gameOverText) {
+  font-size: 30px;
+  color: red;
+}
+
 @media only screen and (max-width: 1000px) {
   :local(.nextAndScore) {
     width: 100%;
