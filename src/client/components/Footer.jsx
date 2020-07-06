@@ -7,7 +7,7 @@ export default function Footer() {
       <Navbar bg="dark" variant="dark">
         <Navbar.Text>
           Made with
-          <span role="img" aria-label="heart"> ❤️</span>
+          <span role="img" aria-label="heart"> ❤️ </span>
           by CN and Michael
         </Navbar.Text>
       </Navbar>
