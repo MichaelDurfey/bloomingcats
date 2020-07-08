@@ -2,7 +2,7 @@
     flex-flow: column;
     align-items: center;
     display: flex;
-    background-color: #62A5BA;
+    background-color: #62A5BA!important;
 }
 :local(.rulesContainer) {
     display: flex;

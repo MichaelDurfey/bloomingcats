@@ -6,7 +6,7 @@ export default function Footer() {
     <>
       <Navbar className="justify-content-between" bg="dark" variant="dark">
         <Navbar.Text>
-          &copy; 2020 by Michael Durfey. All rights reserved. &nbsp;
+          &copy; 2020 by Kitten Pop. All rights reserved. &nbsp;
         </Navbar.Text>
         <Navbar.Text>
           Made with
