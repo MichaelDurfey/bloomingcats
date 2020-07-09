@@ -8,12 +8,12 @@ export default function Board() {
   return (
     <div className={scoreContainer}>
       <div className={scoreText}>
-        <h3>
+        <h5>
           Score
-        </h3>
-        <h3 className={scoreNumber}>
+        </h5>
+        <h5 className={scoreNumber}>
           {score }
-        </h3>
+        </h5>
       </div>
     </div>
   );

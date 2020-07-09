@@ -45,6 +45,7 @@
   height: 85px;
   align-items: flex-end;
   justify-content: center;
+  margin-bottom: 5px;
 }
 :local(.nextAndScore) {
   margin-left: 10px;
