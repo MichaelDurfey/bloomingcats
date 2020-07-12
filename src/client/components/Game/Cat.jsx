@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import ItemTypes from '../../constants';
 import styles from '../../styles/Cat.css';
+import { catImageSelectedMap } from './images';
 // eslint-disable-next-line import/no-cycle
 import { useBoardContext } from './BoardContext';
 
@@ -10,7 +11,7 @@ import { useBoardContext } from './BoardContext';
 export default function Cat({
   cat, numberPosition, row, column, className,
 }) {
-  const { catImageSelectedMap, playable } = useBoardContext();
+  const { playable } = useBoardContext();
   const [{ isDragging }, drag, preview] = useDrag({
     item: {
       type: ItemTypes.CAT, position: { row, column, numberPosition }, cat,

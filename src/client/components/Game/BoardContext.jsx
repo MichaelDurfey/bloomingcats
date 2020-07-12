@@ -7,7 +7,7 @@ import React, {
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
 import Square from './Square';
-import { catImageMap, catImageSelectedMap } from './images';
+import { catImageMap } from './images';
 import { getRandomArrayOfNumsInclusive, clearPath } from './boardContextHelper';
 
 export const randomCat = () => {
@@ -345,7 +345,7 @@ const BoardContextProvider = ({ children }) => {
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, catImageSelectedMap, score, nextThree, playable, gameOver,
+      squares, rerenderBoard, score, nextThree, playable, gameOver,
     }}
     >
       {children}
