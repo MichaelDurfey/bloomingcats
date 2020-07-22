@@ -28,6 +28,11 @@ module.exports = (env = {}) => ({
         },
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+
+      },
+      {
         test: /\.css$/,
         oneOf: [
           {

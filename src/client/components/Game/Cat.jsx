@@ -6,7 +6,7 @@ import styles from '../../styles/Cat.css';
 import { catImageSelectedMap } from './images';
 // eslint-disable-next-line import/no-cycle
 import { useBoardContext } from './BoardContext';
-
+import SVG from 'react-inlinesvg'
 
 export default function Cat({
   cat, numberPosition, row, column, className,
@@ -25,7 +25,7 @@ export default function Cat({
   const dragSource = () => (
     <>
       <div ref={drag} className={styles.dragSource} />
-      <img className={className || styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />
+      <SVG preserveAspectRatio="none" width="30" height="30" id={numberPosition} src={cat.img} alt="cat" role="presentation" />
     </>
   );
   return (
