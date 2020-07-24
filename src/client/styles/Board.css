@@ -56,8 +56,11 @@
 :local(.gameOverContainer) {
   display: flex;
   height: 50vh;
-  width: 100%;
+  width: 90%;
+  margin: 0px;
   position: absolute;
+  background-color: #62A5BA;
+  flex-flow: column;
   justify-content: center;
   align-items: center;
 }
