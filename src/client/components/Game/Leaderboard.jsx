@@ -8,7 +8,7 @@ import styles from '../../styles/Leaderboard.css';
 
 export default function Leaderboard({ leaderboard, updateLeaderboard }) {
   useEffect(() => {
-    fetch('http://localhost:8000/leaders')
+    fetch('https://kittenpopserv.herokuapp.com/leaders')
       .then((response) => response.json())
       .then((data) => updateLeaderboard(data));
   }, []);

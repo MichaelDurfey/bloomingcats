@@ -16,7 +16,7 @@ export default function Board() {
   const [leaderboard, updateLeaderboard] = useState([{ name: 'Si Eun', score: 717 }]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:8000/leader', {
+    fetch('https://kittenpopserv.herokuapp.com/leader', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
