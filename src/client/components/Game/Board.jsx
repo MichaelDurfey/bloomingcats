@@ -9,7 +9,7 @@ import Next from './Next';
 
 export default function Board() {
   const {
-    board, boardContainer, nextAndScore, leaderboardContainer,
+    board, boardContainer, nextAndScore,
   } = styles;
   const { squares, score, gameOver } = useBoardContext();
   const [name, updateName] = useState();
@@ -29,6 +29,7 @@ export default function Board() {
   };
 
   const handleNameChange = (e) => {
+    e.preventDefault();
     updateName(e.target.value);
   };
   return (
@@ -51,9 +52,7 @@ export default function Board() {
         </form>
       </div>
       )}
-      <div className={leaderboardContainer}>
-        <Leaderboard leaderboard={leaderboard} updateLeaderboard={updateLeaderboard} />
-      </div>
+      <Leaderboard leaderboard={leaderboard} updateLeaderboard={updateLeaderboard} />
     </div>
   );
 }

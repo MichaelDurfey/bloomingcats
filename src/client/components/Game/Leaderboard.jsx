@@ -4,42 +4,42 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
+import styles from '../../styles/Leaderboard.css';
 
-export default function Leaderboard({ leaderboard }) {
+export default function Leaderboard({ leaderboard, updateLeaderboard }) {
   useEffect(() => {
     fetch('http://localhost:8000/leaders')
-      .then((response) => console.log('res', response))
-      .then((data) => console.log(data));
+      .then((response) => response.json())
+      .then((data) => updateLeaderboard(data));
   }, []);
 
+  const { mainContainer } = styles;
+
   return (
-    <section>
-      <Container>
-        <Row>
-          <Col>
-            <div>
-              <h4>
-                Leaderboard
-              </h4>
-              {leaderboard && Array.isArray(leaderboard)
+    <Container className={mainContainer}>
+      <Row>
+        <Col>
+          <div>
+            <h4>
+              Leaderboard
+            </h4>
+            <p>get to the end to leave your name!</p>
+            {leaderboard && Array.isArray(leaderboard)
               && leaderboard.map((entry, i) => (
                 <div>
                   {i + 1}
-                  {': '}
-                  <b>name:</b>
+                  {'. '}
                   {' '}
                   {entry.name}
                   {' '}
-                  <b>score:</b>
                   {' '}
                   { entry.score}
                 </div>
               ))}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </section>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
