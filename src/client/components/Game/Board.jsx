@@ -13,6 +13,7 @@ export default function Board() {
   } = styles;
   const { squares, score, gameOver } = useBoardContext();
   const [name, updateName] = useState();
+  const [submitted, updateSubmitted] = useState(false);
   const [leaderboard, updateLeaderboard] = useState([{ name: 'Si Eun', score: 717 }]);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,7 +26,11 @@ export default function Board() {
       credentials: 'omit',
       body: JSON.stringify({ name, score }),
     }).then((res) => res.json())
-      .then((data) => updateLeaderboard(data));
+      .then((data) => {
+        updateLeaderboard(data);
+        updateSubmitted(true);
+        window.location.assign('/game');
+      });
   };
 
   const handleNameChange = (e) => {
@@ -41,16 +46,16 @@ export default function Board() {
       <div className={board}>
         { squares }
       </div>
-      { gameOver && (
-      <div className={styles.gameOverContainer}>
-        <h1 className={styles.gameOverText}>Game over</h1>
-        <p>enter your name for the leaderboard!</p>
-        <form className="form-inline">
-          <label className="sr-only" htmlFor="inlineFormInputName2">Name</label>
-          <input type="text" onChange={handleNameChange} name="inlineFormInputName2" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe" />
-          <button type="button" onClick={handleSubmit} className="btn btn-primary mb-2">Submit</button>
-        </form>
-      </div>
+      { gameOver && !submitted && (
+        <div className={styles.gameOverContainer}>
+          <h1 className={styles.gameOverText}>Game over</h1>
+          <p>enter your name for the leaderboard!</p>
+          <form className="form-inline">
+            <label className="sr-only" htmlFor="inlineFormInputName2">Name</label>
+            <input type="text" onChange={handleNameChange} name="inlineFormInputName2" className="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Jane Doe" />
+            <button type="button" onClick={handleSubmit} className="btn btn-primary mb-2">Submit</button>
+          </form>
+        </div>
       )}
       <Leaderboard leaderboard={leaderboard} updateLeaderboard={updateLeaderboard} />
     </div>
