@@ -3,6 +3,7 @@
     flex-flow: row;
     align-items: center;
     background: rgba(255, 255, 255, 0.637);
+    padding: 1px;
     border-radius: 12px;
     margin-bottom: 10px;
     margin-left: 20px;
@@ -24,6 +25,8 @@
     animation-duration: .3s;
     width: 7vh;
     height: 7vh;
+    min-height: 34px;
+    min-width: 34px;
     max-width: 69px;
     max-height: 69px;
 }
