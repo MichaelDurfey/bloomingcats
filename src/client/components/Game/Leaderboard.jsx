@@ -28,7 +28,7 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
                 Leaderboard
               </Badge>
             </h3>
-            {leaderboard && Array.isArray(leaderboard)
+            {Array.isArray(leaderboard) && leaderboard.length
               ? (
                 <ListGroup>
                   {
