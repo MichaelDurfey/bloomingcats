@@ -14,7 +14,7 @@ export default function Board() {
   const { squares, score, gameOver } = useBoardContext();
   const [name, updateName] = useState();
   const [submitted, updateSubmitted] = useState(false);
-  const [leaderboard, updateLeaderboard] = useState([{ name: 'Si Eun', score: 717 }]);
+  const [leaderboard, updateLeaderboard] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch('https://kittenpopserv.herokuapp.com/leader', {

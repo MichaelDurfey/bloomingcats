@@ -4,6 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
 import Col from 'react-bootstrap/Col';
+import Spinner from 'react-bootstrap/Spinner';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Badge from 'react-bootstrap/Badge';
 import styles from '../../styles/Leaderboard.css';
 
 export default function Leaderboard({ leaderboard, updateLeaderboard }) {
@@ -20,13 +23,17 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
       <Row>
         <Col>
           <div>
-            <h4>
-              Leaderboard
-            </h4>
-            <p>get to the end to leave your name!</p>
+            <h3>
+              <Badge variant="secondary">
+                Leaderboard
+              </Badge>
+            </h3>
             {leaderboard && Array.isArray(leaderboard)
-              && leaderboard.map((entry, i) => (
-                <div>
+              ? (
+                <ListGroup>
+                  {
+              leaderboard.map((entry, i) => (
+                <ListGroup.Item variant="secondary">
                   {i + 1}
                   {'. '}
                   {' '}
@@ -34,8 +41,12 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
                   {' '}
                   {' '}
                   { entry.score}
-                </div>
-              ))}
+                </ListGroup.Item>
+              ))
+              }
+                </ListGroup>
+              )
+              : <Spinner animation="border" variant="primary" />}
           </div>
         </Col>
       </Row>
