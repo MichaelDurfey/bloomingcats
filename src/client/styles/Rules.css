@@ -28,3 +28,62 @@
     width: 200px;
     height: 200px;
 }
+
+:local(.videoBasicElementsContainer) {
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+}
+
+:local(.video) {
+    display: flex;
+    flex-shrink: .5;
+}
+
+@media only screen and (max-width: 1250px) {
+    :local(.videoBasicElementsContainer) {
+    flex-direction: column;
+    height: 700px;
+    }
+    :local(.basicElementsContainer) {
+        flex-basis: auto;
+    }
+    :local(.video) {
+      flex-basis: 65%;
+      flex-shrink: 1;
+    }
+}
+
+@media only screen and (min-width: 1250px) {
+  :local(.basicElementsContainer) {
+      flex-basis: auto;
+  }
+  :local(.video) {
+      flex-basis: 70%;
+  }
+  :local(.videoBasicElementsContainer) {
+      height: 500px;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+    :local(.videoBasicElementsContainer) {
+        flex-direction: column;
+    }
+    :local(.video) {
+        height: 50px;
+        width: 100%;
+        padding-bottom: 10px;
+    }   
+}
+
+
+:local(.basicElementsContainer) {
+display: flex;
+flex-flow: column;
+flex-grow: 0;
+flex-shrink: 2;
+padding-right: 5px;
+}
+
+

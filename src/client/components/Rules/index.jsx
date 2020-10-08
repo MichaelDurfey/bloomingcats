@@ -22,30 +22,36 @@ export default function Rules() {
             </h1>
             <br />
             <section className={styles.rulesContainer}>
-              <h2>
-                Basic Elements
-              </h2>
-              <ol>
-                <li>
-                  <b>Cats:</b>
-                  {' '}
-                  there are 7 different cats.
-                  {' '}
-                  {catImageMap.map((image) => <img src={image} alt="" className={styles.cats} />) }
-                </li>
-                <br />
-                <li>
-                  <b>Next:</b>
-                  {' '}
-                  You are able to see the next three cats that will show on the right hand side of the screen
-                </li>
-                <br />
-                <li>
-                  <b>Score</b>
-                  {' '}
-                  Score increases by 1 for each cat that is removed
-                </li>
-              </ol>
+              <br />
+              <div className={styles.videoBasicElementsContainer}>
+                <div className={styles.basicElementsContainer}>
+                  <h2>
+                    Basic Elements
+                  </h2>
+                  <ol className={styles.ol}>
+                    <li>
+                      <b>Cats:</b>
+                      {' '}
+                      there are 7 different cats.
+                      {' '}
+                      {catImageMap.map((image) => <img src={image} alt="" className={styles.cats} />) }
+                    </li>
+                    <br />
+                    <li>
+                      <b>Next:</b>
+                      {' '}
+                      You are able to see the next three cats that will show on the right hand side of the screen
+                    </li>
+                    <br />
+                    <li>
+                      <b>Score</b>
+                      {' '}
+                      Score increases by 1 for each cat that is removed
+                    </li>
+                  </ol>
+                </div>
+                <iframe title="how to play kitten pop video" className={styles.video} src="https://www.youtube-nocookie.com/embed/JM3VyhU9Hag" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+              </div>
               <h2>
                 Gameplay
               </h2>
