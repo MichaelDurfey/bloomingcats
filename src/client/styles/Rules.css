@@ -71,8 +71,6 @@ flex-wrap: nowrap;
         flex-direction: column;
     }
     :local(.video) {
-        height: 50px;
-        width: 100%;
         padding-bottom: 10px;
     }   
 }
