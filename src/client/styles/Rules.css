@@ -70,8 +70,12 @@ flex-wrap: nowrap;
     :local(.videoBasicElementsContainer) {
         flex-direction: column;
     }
+    :local(.basicElementsContainer) {
+      flex-basis: auto;
+    }
     :local(.video) {
         padding-bottom: 10px;
+        flex-shrink: 1;
     }   
 }
 
