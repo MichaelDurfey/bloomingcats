@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 
 import React, { useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
@@ -28,8 +29,8 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
                 Leaderboard
               </Badge>
             </h3>
-            {Array.isArray(leaderboard) && leaderboard.length
-              ? (
+            {Array.isArray(leaderboard)
+              ? leaderboard.length ? (
                 <ListGroup>
                   {
               leaderboard.map((entry, i) => (
@@ -45,7 +46,7 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
               ))
               }
                 </ListGroup>
-              )
+              ) : <p>No leaders yet!</p>
               : <Spinner animation="border" variant="primary" />}
           </div>
         </Col>
