@@ -10,8 +10,8 @@ I created this branch as a companion repo to my talk at JS@PayPal 2021
 You can see the client-side rendered version of this app hoted live at https://www.kittenpop.net
 This repo transforms this live version to SSR for purposes of this demo.
 
-To get started:
-Requirements: Node >= 12.16 and NPM >= 6
+## To get started
+**Requirements: Node >= 12.16 and NPM >= 6**
 1. clone this branch `git clone https://github.com/MichaelDurfey/bloomingcats.git`
 2. install: `npm i`
 3. build: `npm run build`
@@ -25,7 +25,7 @@ SSR code splitting is route based only at the moment and you can see that logic 
 You can see SSR in action by navigating to the different routes `/', '/game' and '/rules'
 Witness the different route based chunks being requested dynamically at runtime and also attached via script tag server side!
 
-To see how I made this client-side app SSR capable check out my past few commits on this branch. This also shows how I added in SSR code splitting and also Differential Serving.
+To see how I made this client-side app SSR capable, check out my past few commits on this branch. This also shows how I added in SSR code splitting and also Differential Serving.
 
 ## Happy coding
 
