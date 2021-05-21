@@ -5,23 +5,15 @@ const common = require('./webpack.common');
 
 const config = (env) => merge(common(env), {
   mode: 'production',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
-    filename: '[name].[hash].js',
-  },
-});
-
-module.exports = (env) => [config({
-  entry: {
-    server: './server/',
-  },
-  target: 'node',
-  ...env,
-}), config({
   entry: {
     app: './src/client/App.jsx',
   },
-  target: 'web',
-  ...env,
-})];
+  devtool: 'source-map',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    filename: env.modern ? '[name].[hash].esm.js' : '[name].[hash].cjs.js',
+  },
+});
+
+module.exports = (env) => [config({ ...env, modern: true, target: 'web' }), config({ ...env, target: 'web' })];

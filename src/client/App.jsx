@@ -3,6 +3,7 @@ import { hydrate, render } from 'react-dom';
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
+import { loadableReady } from '@loadable/component';
 import Main from './components/Main';
 // eslint-disable-next-line import/no-unresolved
 import 'bootstrap/dist/css/bootstrap.min.css?raw';
@@ -16,7 +17,9 @@ const Root = () => (
 );
 
 const renderMethod = module.hot ? render : hydrate;
-renderMethod(<Root />, document.getElementById('root'));
+loadableReady(() => {
+  renderMethod(<Root />, document.getElementById('root'));
+});
 
 if (module.hot) {
   module.hot.accept((err) => {

@@ -41,7 +41,7 @@ export default function Leaderboard({ leaderboard }) {
               }
                 </ListGroup>
               ) : <p>No leaders yet!</p>
-              : <Spinner animation="border" variant="primary" />}
+              : null}
           </div>
         </Col>
       </Row>

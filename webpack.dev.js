@@ -6,13 +6,13 @@ const common = require('./webpack.common');
 const config = (env) => merge(common(env), {
   mode: 'development',
   devtool: 'inline-source-map',
-  plugins: [new webpack.HotModuleReplacementPlugin()].filter(Boolean),
-});
-
-module.exports = (env) => config({
   entry: {
     app: './src/client/App.jsx',
   },
-  target: 'web',
-  ...env,
+  output: {
+    filename: env.modern ? '[name].[hash].esm.js' : '[name].[hash].cjs.js',
+  },
+  plugins: [new webpack.HotModuleReplacementPlugin()].filter(Boolean),
 });
+
+module.exports = (env) => [config({ ...env, modern: true, target: 'web' }), config({ ...env, target: 'web' })];
