@@ -1,8 +1,17 @@
 # bloomingcats
 
-I created this branch as a companion branch to my talk at JS@PayPal 2021
+I created this branch as a companion repo to my talk at JS@PayPal 2021
+
+**I hope to demonstrate** 
+* SSR code splitting with https://github.com/gregberge/loadable-components
+* Differential Serving with [babel](https://github.com/babel/babel), [core-js](https://github.com/zloirock/core-js) and [browserslist](https://github.com/browserslist/browserslist-useragent)
+* How to build a JS web app that works on mobile and desktop using [react-dnd](https://github.com/react-dnd/react-dnd)
+
+You can see the client-side rendered version of this app hoted live at https://www.kittenpop.net
+This repo transforms this live version to SSR for purposes of this demo.
+
 To get started:
-1. clone this branch and make sure you're on the SSR branch when running this locally
+1. clone this branch and make sure you're on the SSR branch when running this locally. `git checkout -b ssr`
 2. install: `npm i`
 3. build: `npm run build`
 4. navigate to http://localhost:3000
@@ -16,8 +25,7 @@ Witness the different route based chunks being requested dynamically at runtime 
 
 To see how I made this client-side app SSR capable check out my past few commits on this branch. This also shows how I added in SSR code splitting and also Differential Serving.
 
-## A fun game with cats
-https://www.kittenpop.net
+## Happy coding
 
 <img src='./src/assets/5GreyCat.png' width="150" height="150">
 
