@@ -7,11 +7,9 @@
     "clean": "rm -rf dist",
     "dev": "webpack --config=webpack.dev.js && webpack --config=webpack.dev.server.js",
     "build": "webpack --config=webpack.prod.js && webpack --config=webpack.prod.server.js",
-    "build:dev": "webpack --config=webpack.dev.js",
     "dev-server": "node --inspect ./src/server/dev-server.js",
     "prod": "webpack --config=./webpack.prod.js",
-    "server": "nodemon ./server/index.js",
-    "start": "node .",
+    "start": "node ./dist/server.js",
     "analyze": "webpack --env.analyze=true --config=./webpack.prod.js"
   },
   "repository": {
