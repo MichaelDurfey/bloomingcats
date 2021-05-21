@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import PropTypes from 'prop-types';
@@ -10,13 +10,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Badge from 'react-bootstrap/Badge';
 import styles from '../../styles/Leaderboard.css';
 
-export default function Leaderboard({ leaderboard, updateLeaderboard }) {
-  useEffect(() => {
-    fetch('https://kittenpopserv.herokuapp.com/leaders')
-      .then((response) => response.json())
-      .then((data) => updateLeaderboard(data));
-  }, []);
-
+export default function Leaderboard({ leaderboard }) {
   const { mainContainer } = styles;
 
   return (
@@ -59,5 +53,4 @@ Leaderboard.propTypes = {
   leaderboard: PropTypes.arrayOf(
     PropTypes.shape([{ name: PropTypes.string, score: PropTypes.number }]),
   ).isRequired,
-  updateLeaderboard: PropTypes.func.isRequired,
 };

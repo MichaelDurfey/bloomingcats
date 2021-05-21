@@ -8,7 +8,7 @@ import BoardContextProvider from './BoardContext';
 
 function isTouchDevice() {
   // eslint-disable-next-line no-undef
-  if (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch)) {
+  if (typeof window !== 'undefined' && (('ontouchstart' in window) || (window.DocumentTouch && document instanceof DocumentTouch))) {
     return true;
   }
   return false;

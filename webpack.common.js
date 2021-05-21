@@ -1,23 +1,26 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
+const babelPublicConfig = require('./babelPublicConfig');
 
 module.exports = (env = {}) => ({
   entry: {
-    app: './src/client/App.jsx',
+    ...env.entry,
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-    filename: '[name].[hash].js',
+    filename: env.target === 'node' ? 'server.js' : '[name].js',
   },
+  target: env.target,
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: { loader: 'babel-loader', ...(env.target === 'web' && { options: { ...babelPublicConfig } }) },
       },
       {
         test: /\.(png|jpe?g|gif|webp|mp3)$/i,
@@ -33,10 +36,10 @@ module.exports = (env = {}) => ({
           {
             resourceQuery: /^\?raw$/,
             use: [
-              'style-loader', 'css-loader',
+              MiniCssExtractPlugin.loader, 'css-loader',
             ],
           }, {
-            use: ['style-loader', {
+            use: [MiniCssExtractPlugin.loader, {
               loader: 'css-loader',
               options: {
                 modules: true,
@@ -55,10 +58,9 @@ module.exports = (env = {}) => ({
     extensions: ['.js', '.jsx', '.css'],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-    }),
     env.analyze && new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin(),
+    env.target === 'web' && new LoadablePlugin(),
   ].filter(Boolean),
-  devtool: 'source-map',
+  devtool: 'cheap-eval-source-map',
 });

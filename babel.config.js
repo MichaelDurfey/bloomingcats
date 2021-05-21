@@ -5,12 +5,13 @@ module.exports = (api) => {
       [
         '@babel/env',
         {
-          targets: { esmodules: true },
-          useBuiltIns: 'usage',
-          corejs: '3.6.5',
+          targets: { node: 'current' },
         },
       ],
       '@babel/preset-react',
+    ],
+    plugins: [
+      '@loadable/babel-plugin',
     ],
   };
 };

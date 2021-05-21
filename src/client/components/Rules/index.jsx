@@ -34,7 +34,7 @@ export default function Rules() {
                       {' '}
                       there are 7 different cats.
                       {' '}
-                      {catImageMap.map((image) => <img src={image} alt="" className={styles.cats} />) }
+                      {catImageMap.map((image) => <img src={image} alt="" width="59" height="49" className={styles.cats} />) }
                     </li>
                     <br />
                     <li>
@@ -75,7 +75,7 @@ export default function Rules() {
                   <br />
                   <picture>
                     <source srcSet={ruleImage1webp} type="image/webp" />
-                    <img src={ruleImage1} alt="" className={styles.ruleImage1} />
+                    <img width="200" height="200" src={ruleImage1} alt="" className={styles.ruleImage1} />
                   </picture>
                 </li>
                 <li>
@@ -91,7 +91,7 @@ export default function Rules() {
                   <br />
                   <picture>
                     <source srcSet={ruleImage2webp} type="image/webp" />
-                    <img src={ruleImage2} alt="" className={styles.ruleImage1} />
+                    <img width="200" height="200" src={ruleImage2} alt="" className={styles.ruleImage1} />
                   </picture>
                 </li>
               </ol>

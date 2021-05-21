@@ -25,7 +25,7 @@ export default function Cat({
   const dragSource = () => (
     <>
       <div ref={drag} className={styles.dragSource} />
-      <img className={className || styles.image} id={numberPosition} src={cat.img} alt="cat" role="presentation" />
+      <img className={className || styles.image} width="59" height="49" id={numberPosition} src={cat.img} alt="cat" role="presentation" />
     </>
   );
   return (
@@ -35,7 +35,7 @@ export default function Cat({
         src={catImageSelectedMap[cat.index]}
       />
       {(!isDragging && dragSource())
-      || <img ref={drag} className={styles.image} id={numberPosition} src={catImageSelectedMap[cat.index]} alt="cat" role="presentation" />}
+      || <img ref={drag} className={styles.image} width="59" height="49" id={numberPosition} src={catImageSelectedMap[cat.index]} alt="cat" role="presentation" />}
     </>
   );
 }

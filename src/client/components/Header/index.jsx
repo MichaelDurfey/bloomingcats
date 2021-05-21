@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import Music from './Game/Music';
+import Music from '../Game/Music';
 
 export default function Header() {
   return (
