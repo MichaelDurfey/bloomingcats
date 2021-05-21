@@ -11,10 +11,12 @@ You can see the client-side rendered version of this app hoted live at https://w
 This repo transforms this live version to SSR for purposes of this demo.
 
 To get started:
-1. clone this branch and make sure you're on the SSR branch when running this locally. `git checkout -b ssr`
+Requirements: Node >= 12.16 and NPM >= 6
+1. clone this branch `git clone https://github.com/MichaelDurfey/bloomingcats.git`
 2. install: `npm i`
 3. build: `npm run build`
-4. navigate to http://localhost:3000
+4. start: `npm start`
+5. navigate to http://localhost:3000
 
 Differential Serving happens both in the /src/server/renderer.jsx file, webpack configuration and also babelPublicConfig.js
 
