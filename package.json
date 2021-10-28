@@ -1,7 +1,7 @@
 {
   "name": "bloominggarden",
   "version": "1.0.0",
-  "description": "Blooming garden implementation",
+  "description": "Kitten Pop",
   "main": "index.js",
   "scripts": {
     "test": "test",

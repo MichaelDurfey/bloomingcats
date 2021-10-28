@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import styles from '../../styles/Board.css';
 import { useBoardContext } from './BoardContext';
-import Leaderboard from './Leaderboard';
 import Score from './Score';
 import Next from './Next';
 
@@ -11,10 +10,11 @@ export default function Board() {
   const {
     board, boardContainer, nextAndScore,
   } = styles;
-  const { squares, score, gameOver } = useBoardContext();
+  const {
+    squares, score, gameOver, updateLeaderboard,
+  } = useBoardContext();
   const [name, updateName] = useState();
   const [submitted, updateSubmitted] = useState(false);
-  const [leaderboard, updateLeaderboard] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch('https://kittenpopserv.herokuapp.com/leader', {
@@ -57,7 +57,6 @@ export default function Board() {
           </form>
         </div>
       )}
-      <Leaderboard leaderboard={leaderboard} updateLeaderboard={updateLeaderboard} />
     </div>
   );
 }

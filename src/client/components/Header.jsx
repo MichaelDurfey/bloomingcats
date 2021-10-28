@@ -21,6 +21,7 @@ export default function Header() {
         <Nav>
           <Nav.Link href="/game">Game</Nav.Link>
           <Nav.Link href="/rules">Rules</Nav.Link>
+          <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
           <Nav.Link>
             <Music />
           </Nav.Link>

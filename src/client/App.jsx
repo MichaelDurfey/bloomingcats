@@ -7,11 +7,13 @@ import Main from './components/Main';
 // eslint-disable-next-line import/no-unresolved
 import 'bootstrap/dist/css/bootstrap.min.css?raw';
 import './styles/App.css';
-
+import BoardContextProvider from './components/Game/BoardContext';
 
 const Root = () => (
   <Router>
-    <Main />
+    <BoardContextProvider>
+      <Main />
+    </BoardContextProvider>
   </Router>
 );
 

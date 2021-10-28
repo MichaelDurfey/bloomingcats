@@ -3,3 +3,12 @@
   display: flex;
   justify-content: center;
 }
+
+:local(.leaderboardPage) {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2%;
+  height: 100vh;
+}

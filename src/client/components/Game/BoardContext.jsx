@@ -236,6 +236,7 @@ const BoardContextProvider = ({ children }) => {
   const [nextThree, getNextThreeCats] = useState(nextThreeCats());
   const [playable, updatePlayable] = useState(true);
   const [gameOver, updateGameOver] = useState(false);
+  const [leaderboard, updateLeaderboard] = useState(null);
   const checkMatches = (finalMap) => {
     let newMap = [...finalMap];
     let match;
@@ -311,14 +312,13 @@ const BoardContextProvider = ({ children }) => {
     const randomNums = getRandomArrayOfNumsInclusive(totalAvailableSquares.length - 1, 3);
     const randomThreeAvailableNumbers = randomNums
       .map((value) => totalAvailableSquares[value]);
-    let finalMapCounter = -1;
+    let finalMapCounter = 0;
     const { match, newMap: matchedMap } = checkMatches(newMap);
     let finalMap = matchedMap;
 
     if (!match) {
       finalMap = newMap.map((arr, rowIdx) => arr
         .map((square, idx) => {
-          finalMapCounter += 1;
           if (randomThreeAvailableNumbers.includes(finalMapCounter)) {
             availableSquares[finalMapCounter] = undefined;
             return (
@@ -332,6 +332,7 @@ const BoardContextProvider = ({ children }) => {
               />
             );
           }
+          finalMapCounter += 1;
           return square;
         }));
       ({ newMap: finalMap } = checkMatches(finalMap));
@@ -345,7 +346,7 @@ const BoardContextProvider = ({ children }) => {
 
   return (
     <BoardContext.Provider value={{
-      squares, rerenderBoard, score, nextThree, playable, gameOver,
+      squares, rerenderBoard, score, nextThree, playable, gameOver, updateLeaderboard, leaderboard,
     }}
     >
       {children}

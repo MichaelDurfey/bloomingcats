@@ -20,19 +20,20 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
   const { mainContainer } = styles;
 
   return (
-    <Container className={mainContainer}>
-      <Row>
-        <Col>
-          <div>
-            <h3>
-              <Badge variant="secondary">
-                Leaderboard
-              </Badge>
-            </h3>
-            {Array.isArray(leaderboard)
-              ? leaderboard.length ? (
-                <ListGroup>
-                  {
+    <section>
+      <Container className={mainContainer}>
+        <Row>
+          <Col>
+            <div>
+              <h3>
+                <Badge variant="secondary">
+                  Leaderboard
+                </Badge>
+              </h3>
+              {Array.isArray(leaderboard)
+                ? leaderboard.length ? (
+                  <ListGroup>
+                    {
               leaderboard.map((entry, i) => (
                 <ListGroup.Item variant="secondary">
                   {i + 1}
@@ -45,13 +46,14 @@ export default function Leaderboard({ leaderboard, updateLeaderboard }) {
                 </ListGroup.Item>
               ))
               }
-                </ListGroup>
-              ) : <p>No leaders yet!</p>
-              : <Spinner animation="border" variant="primary" />}
-          </div>
-        </Col>
-      </Row>
-    </Container>
+                  </ListGroup>
+                ) : <p>No leaders yet!</p>
+                : <Spinner animation="border" variant="primary" />}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
   );
 }
 

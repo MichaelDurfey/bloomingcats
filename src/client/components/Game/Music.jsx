@@ -41,7 +41,6 @@ export default function Next() {
         src={kittenPop2Low}
         ref={audioRef}
         id="kittenPopMainTune"
-        autoPlay
         onPlay={() => updateIsPlaying(true)}
         onPause={() => updateIsPlaying(false)}
         onTimeUpdate={(e) => {
