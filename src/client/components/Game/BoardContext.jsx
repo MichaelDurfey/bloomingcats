@@ -312,13 +312,14 @@ const BoardContextProvider = ({ children }) => {
     const randomNums = getRandomArrayOfNumsInclusive(totalAvailableSquares.length - 1, 3);
     const randomThreeAvailableNumbers = randomNums
       .map((value) => totalAvailableSquares[value]);
-    let finalMapCounter = 0;
+    let finalMapCounter = -1;
     const { match, newMap: matchedMap } = checkMatches(newMap);
     let finalMap = matchedMap;
 
     if (!match) {
       finalMap = newMap.map((arr, rowIdx) => arr
         .map((square, idx) => {
+          finalMapCounter += 1;
           if (randomThreeAvailableNumbers.includes(finalMapCounter)) {
             availableSquares[finalMapCounter] = undefined;
             return (
@@ -332,7 +333,6 @@ const BoardContextProvider = ({ children }) => {
               />
             );
           }
-          finalMapCounter += 1;
           return square;
         }));
       ({ newMap: finalMap } = checkMatches(finalMap));
